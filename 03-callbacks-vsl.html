@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>The 7 AM Call — A PoolOps Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f10;
+  --ink:#ececea;
+  --paper:#f1ece2;
+  --warn:#ff6b3d;
+  --deep:#0b1e24;
+  --moss:#1f3b2f;
+  --sand:#d9cdb0;
+  --red:#9a1a0c;
+  --blue:#4a93a8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:"Inter Tight",sans-serif;line-height:1.55;overflow-x:hidden}
+.container{max-width:980px;margin:0 auto;padding:0 28px}
+
+/* masthead */
+.mast{
+  padding:44px 0 20px;border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.22em;color:#7e8584;text-transform:uppercase;
+}
+.mast .brand{display:flex;gap:12px;align-items:center;color:var(--paper)}
+.mast .brand .glyph{width:18px;height:18px;border-radius:999px;background:conic-gradient(from 200deg, var(--warn), var(--blue), var(--warn));box-shadow:0 0 0 2px #0b0f10, 0 0 0 3px #2b3536}
+.mast .issue b{color:var(--warn)}
+
+/* hero */
+.hero{padding:72px 0 90px;position:relative}
+.hero .cat{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.3em;color:var(--warn);text-transform:uppercase}
+.hero h1{
+  font-family:"Fraunces",serif;font-weight:300;font-size:108px;letter-spacing:-3px;line-height:.92;margin:18px 0 22px;color:var(--paper);
+}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--warn)}
+.hero h1 span{display:block}
+.hero .drop{font-family:"Fraunces";font-style:italic;font-weight:500;font-size:22px;color:#bdc8c6;max-width:640px}
+.hero .drop b{color:var(--paper);font-weight:500}
+.hero .byline{margin-top:42px;display:grid;grid-template-columns:1fr auto auto auto;gap:22px;align-items:end;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.22em;color:#7e8584;text-transform:uppercase;border-top:1px solid rgba(255,255,255,.1);padding-top:16px}
+.hero .byline b{color:var(--paper)}
+
+/* cinematic block */
+.film{
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(255,107,61,.18), transparent 70%),
+    linear-gradient(180deg, #0a1619, var(--deep));
+  padding:90px 0;border-top:1px solid #0f2024;border-bottom:1px solid #0f2024;position:relative
+}
+.film::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='1.2' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/></svg>");pointer-events:none}
+.scene{display:grid;grid-template-columns:120px 1fr;gap:32px;align-items:start}
+.scene + .scene{margin-top:48px}
+.scene .mark{
+  font-family:"Fraunces";font-style:italic;font-size:54px;color:var(--warn);line-height:.9;letter-spacing:-2px;
+  border-right:1px solid rgba(255,107,61,.35);padding-right:32px;height:100%;
+}
+.scene .mark small{display:block;font-family:"JetBrains Mono";font-size:10px;letter-spacing:.3em;color:#9aa3a2;margin-top:10px;font-style:normal}
+.scene p{font-family:"Fraunces",serif;font-weight:300;font-size:28px;letter-spacing:-.3px;line-height:1.35;color:#e6e2d6}
+.scene p em{color:var(--warn);font-weight:500;font-style:italic}
+.scene p b{font-weight:500;color:var(--paper)}
+
+/* pullquote */
+.pull{padding:110px 0;text-align:center;position:relative}
+.pull::before{content:"“";font-family:"Fraunces";font-style:italic;font-size:260px;line-height:1;color:var(--warn);opacity:.25;position:absolute;top:30px;left:50%;transform:translateX(-50%)}
+.pull q{quotes:none}
+.pull q{font-family:"Fraunces";font-style:italic;font-weight:400;font-size:64px;line-height:1.1;letter-spacing:-1.5px;color:var(--paper);display:block;max-width:860px;margin:0 auto}
+.pull cite{display:block;margin-top:36px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.3em;color:#8e9998;font-style:normal}
+.pull cite b{color:var(--paper)}
+
+/* receipts */
+.receipts{padding:100px 0;background:linear-gradient(180deg, #0b1013, #0f1a1d)}
+.receipts .lede{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.3em;color:var(--warn);text-transform:uppercase;margin-bottom:18px}
+.receipts h2{font-family:"Fraunces";font-weight:400;font-size:64px;letter-spacing:-1px;line-height:1;color:var(--paper);max-width:780px}
+.receipts h2 em{font-style:italic;color:var(--blue)}
+.tally{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;gap:0;margin-top:64px;border-top:1px solid #223033;border-bottom:1px solid #223033}
+.tally > div{padding:26px 22px;border-right:1px solid #223033}
+.tally > div:last-child{border-right:none}
+.tally .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.28em;color:#7e8584;text-transform:uppercase}
+.tally .v{font-family:"Fraunces";font-weight:400;font-size:54px;line-height:1;letter-spacing:-1.2px;color:var(--paper);margin-top:14px}
+.tally .v em{color:var(--warn);font-style:italic}
+.tally .cap{font-family:"Inter Tight";font-size:13px;color:#9aa3a2;margin-top:10px;max-width:22ch;line-height:1.4}
+
+/* transcript */
+.trans{padding:90px 0;background:var(--bg)}
+.trans .eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.3em;color:var(--warn);text-transform:uppercase;margin-bottom:14px}
+.trans h3{font-family:"Fraunces";font-weight:300;font-size:56px;letter-spacing:-1px;color:var(--paper);margin-bottom:34px;line-height:1}
+.log{background:#0e1518;border:1px solid #1b2528;border-radius:2px;padding:28px 32px;font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.9;color:#cdd3d2}
+.log .t{color:var(--warn)}
+.log .me{color:var(--paper)}
+.log .sys{color:var(--blue)}
+.log .alert{display:inline-block;padding:2px 8px;border:1px solid var(--warn);color:var(--warn);margin-right:8px;letter-spacing:.22em;font-size:10px;text-transform:uppercase;vertical-align:middle}
+
+/* close */
+.close{padding:130px 0 160px;background:
+  radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255,107,61,.24), transparent 70%),
+  var(--bg);text-align:left}
+.close .eye{font-family:"JetBrains Mono";font-size:11px;letter-spacing:.3em;color:var(--warn);margin-bottom:18px}
+.close h4{font-family:"Fraunces";font-weight:400;font-size:92px;letter-spacing:-2px;line-height:.95;color:var(--paper);max-width:880px}
+.close h4 em{font-style:italic;color:var(--warn)}
+.close .cta-row{display:flex;gap:18px;align-items:center;margin-top:50px;flex-wrap:wrap}
+.cta{
+  display:inline-flex;align-items:center;gap:14px;
+  background:var(--warn);color:#1a0602;padding:22px 30px;
+  font-family:"Fraunces";font-weight:500;font-size:20px;letter-spacing:-.2px;
+  border-radius:999px;
+}
+.cta .ar{font-family:"JetBrains Mono";font-weight:500}
+.cta-ghost{
+  display:inline-flex;align-items:center;gap:10px;color:var(--paper);
+  font-family:"JetBrains Mono";font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  border-bottom:1px solid #333;padding-bottom:4px
+}
+.foot{border-top:1px solid rgba(255,255,255,.08);padding:22px 0;font-family:"JetBrains Mono";font-size:10px;letter-spacing:.26em;color:#6b7473;text-transform:uppercase;display:flex;justify-content:space-between}
+.foot b{color:var(--paper)}
+
+/* decorative side rule */
+.sideways{
+  position:fixed;left:14px;top:50%;transform:rotate(-90deg) translateX(50%);transform-origin:left;
+  font-family:"JetBrains Mono";font-size:10px;letter-spacing:.4em;color:#3a4444;text-transform:uppercase;
+}
+.sideways b{color:var(--warn)}
+
+/* meta strip */
+.meta{position:fixed;top:12px;right:16px;font-family:"JetBrains Mono";font-size:10px;color:#555;letter-spacing:.2em}
+.meta b{color:var(--warn)}
+</style>
+</head>
+<body>
+<div class="meta">VSL · LP · <b>ICP 03</b> · GROWING OWNER / CHEMISTRY PAIN</div>
+<div class="sideways">LONG-FORM · <b>03 / 10</b> · THE CALLBACK ISSUE</div>
+
+<div class="container">
+  <header class="mast">
+    <div class="brand"><span class="glyph"></span><span>POOLOPS JOURNAL</span></div>
+    <div class="issue">VOL. 1 · ISSUE 07 · <b>THE CALLBACK ISSUE</b></div>
+  </header>
+</div>
+
+<section class="hero">
+  <div class="container">
+    <div class="cat">· A PoolOps Story · Essay</div>
+    <h1>
+      <span>The 7 a.m. phone</span>
+      <span><em>call</em> that almost</span>
+      <span>broke my route.</span>
+    </h1>
+    <p class="drop">
+      Every pool service owner knows the sound. The one that arrives before the coffee finishes.
+      <b>“Hey, my pool’s green.”</b> — This is how one company stopped hearing it.
+    </p>
+    <div class="byline">
+      <div>Watch the 3-minute film <span style="color:var(--warn)">▶</span></div>
+      <div>Runtime · <b>3:12</b></div>
+      <div>Reading · <b>4 min</b></div>
+      <div>Filed · <b>Austin, TX</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="film">
+  <div class="container">
+    <div class="scene">
+      <div class="mark">I.<small>Tuesday</small></div>
+      <p>Dani had <em>forty-two pools</em> on Tuesdays. She knew the Smiths’ liner was delaminating.
+      She <b>didn’t</b> know their pH had been climbing for three weeks. Nobody did.</p>
+    </div>
+    <div class="scene">
+      <div class="mark">II.<small>Saturday</small></div>
+      <p>By Saturday night, the algae had decided for everyone. The Smiths woke up
+      to a <em>mossy lagoon</em>, a daughter’s birthday party at 3, and Dani’s number at the top of their contacts.</p>
+    </div>
+    <div class="scene">
+      <div class="mark">III.<small>Sunday</small></div>
+      <p>The recovery: <b>$312 in chemicals</b>, four extra hours, a pizza for the birthday girl,
+      and a long silence from a customer who had been with the route since 2019.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pull">
+  <div class="container">
+    <q>The route didn’t fail. The reading from two weeks ago did. A number nobody was watching.</q>
+    <cite>— FILM EXCERPT · <b>CHAPTER TWO</b> · 01:48</cite>
+  </div>
+</section>
+
+<section class="receipts">
+  <div class="container">
+    <div class="lede">· The arithmetic of a callback</div>
+    <h2>One missed reading <em>is not</em> an inconvenience. It’s a small fire you paid to put out.</h2>
+    <div class="tally">
+      <div><div class="k">Chemicals</div><div class="v">$312</div><div class="cap">Stabilizer + acid + three gallons of shock</div></div>
+      <div><div class="k">Labor hours</div><div class="v">4.5h</div><div class="cap">Weekend recovery + return visit + the apology</div></div>
+      <div><div class="k">At-risk revenue</div><div class="v"><em>$2,400</em></div><div class="cap">Annual value of a customer on the edge</div></div>
+      <div><div class="k">Feeling</div><div class="v">0:00</div><div class="cap">Amount of sleep Dani got Saturday night</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="trans">
+  <div class="container">
+    <div class="eyebrow">· Chapter three · A different Saturday</div>
+    <h3>What the <em style="font-style:italic;color:var(--warn)">alert</em> looks like now.</h3>
+    <div class="log">
+<span class="t">[TUE 11:14]</span> <span class="me">READING // SMITH · 112 MAPLE</span><br/>
+<span class="sys">pH 7.8 ↑ · FC 1.1 ↓ · TA 90 · 72°F</span><br/>
+<span class="t">[TUE 11:14]</span> <span class="alert">WATCH</span> <span class="sys">pH trending +0.12 / reading. Reaches critical in ~9 days at current slope.</span><br/>
+<span class="t">[TUE 11:15]</span> <span class="me">POOLOPS → ROUTE · SMITH added to Thursday shock list. Auto-order: 1 gal muriatic + 3 lb tri-chlor.</span><br/>
+<span class="t">[THU 08:02]</span> <span class="me">DANI · adjusted. pH 7.4 · FC 2.8.</span><br/>
+<span class="t">[SAT 07:12]</span> <span class="sys">No calls. Coffee. Pool is blue.</span>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="container">
+    <div class="eye">· Closing argument</div>
+    <h4>Stop <em>reacting</em> to green pools.<br/>Start seeing them coming.</h4>
+    <div class="cta-row">
+      <a class="cta" href="#">Watch the full 3-minute film <span class="ar">↗</span></a>
+      <a class="cta-ghost" href="#">Or, skip the film — start the 14-day trial</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot container">
+  <div>POOLOPS · <b>Route + Chemistry</b> · $79 flat / mo · Up to 3 techs, 200 pools</div>
+  <div>VSL ISSUE 07 · <b>APRIL 2026</b></div>
+</footer>
+</body>
+</html>

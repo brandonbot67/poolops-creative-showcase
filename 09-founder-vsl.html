@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>A letter from the founder — PoolOps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4ead0;
+  --paper2:#eee0ba;
+  --ink:#1a1410;
+  --bluepen:#0b2c55;
+  --redpen:#a81716;
+  --pencil:#5a4a2a;
+  --tape:#f5df92;
+  --tape2:#dcc06a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#2b201a;font-family:"Cormorant Garamond",serif;color:var(--ink);line-height:1.6;padding:36px 16px 80px}
+.meta{position:fixed;top:12px;right:14px;font-family:"Courier Prime";font-size:10px;letter-spacing:.22em;color:#c6b089}
+.meta b{color:#f5cd7a}
+
+.wood{max-width:920px;margin:0 auto;position:relative;padding:26px;background:
+  repeating-linear-gradient(90deg, #3a281d 0 4px, #2e1f15 4px 8px, #3a281d 8px 14px),
+  #2e1f15;border-radius:4px;box-shadow:0 40px 100px rgba(0,0,0,.55)}
+.wood::before{content:"";position:absolute;inset:10px;border:1px dashed rgba(255,255,255,.08);pointer-events:none}
+
+/* envelope/paper */
+.letter{
+  position:relative;background:linear-gradient(180deg,var(--paper),var(--paper2));
+  padding:56px 62px 56px;
+  box-shadow:0 10px 40px rgba(0,0,0,.35), inset 0 0 120px rgba(90,74,42,.22);
+  border-radius:2px;overflow:hidden;
+}
+.letter::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle at 20% 85%, rgba(90,74,42,.18), transparent 20%),
+    radial-gradient(circle at 80% 15%, rgba(90,74,42,.12), transparent 22%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.1'/></svg>");
+  mix-blend-mode:multiply;
+}
+.letter::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 34px, rgba(11,44,85,.06) 34px 35px);
+}
+
+/* washi tape */
+.tape{
+  position:absolute;z-index:4;background:linear-gradient(180deg, var(--tape), var(--tape2));
+  width:160px;height:36px;box-shadow:0 4px 10px rgba(0,0,0,.25);
+  border-left:1px dashed rgba(0,0,0,.18);border-right:1px dashed rgba(0,0,0,.18);
+  opacity:.95
+}
+.tape::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg, transparent 0 6px, rgba(255,255,255,.15) 6px 7px)}
+.tape.t1{top:-14px;left:80px;transform:rotate(-7deg)}
+.tape.t2{top:-16px;right:100px;transform:rotate(6deg);background:linear-gradient(180deg,#f4b7b4,#e78a86);width:140px}
+.tape.t3{bottom:-18px;left:46%;transform:rotate(-3deg);background:linear-gradient(180deg,#b8dcff,#86bcec);width:130px}
+
+/* photo polaroid */
+.polaroid{
+  position:absolute;z-index:3;top:64px;right:48px;width:210px;
+  background:#fff;padding:10px 10px 42px;box-shadow:0 16px 30px rgba(0,0,0,.35);
+  transform:rotate(5deg)
+}
+.polaroid .pic{aspect-ratio:1/1;background:
+  radial-gradient(ellipse 80% 65% at 50% 40%, #86a4b2 0, #3e5565 70%),
+  #28394a;position:relative;overflow:hidden}
+.polaroid .pic svg{position:absolute;inset:0;width:100%;height:100%}
+.polaroid .cap{margin-top:10px;text-align:center;font-family:"Caveat";font-size:18px;color:#333;transform:rotate(-.3deg)}
+.polaroid .cap em{font-style:italic;color:#0b2c55}
+
+/* return address */
+.return{position:absolute;top:22px;left:28px;font-family:"Courier Prime",monospace;font-size:11px;letter-spacing:.06em;color:#5a4a2a;line-height:1.5}
+.return b{color:var(--ink);font-weight:700}
+/* stamp */
+.stamp{
+  position:absolute;top:24px;right:24px;width:86px;height:110px;background:linear-gradient(180deg,#f4ead0,#e8d9a8);
+  border:2px dashed #8c6a1a;display:grid;place-items:center;transform:rotate(4deg);box-shadow:0 6px 18px rgba(0,0,0,.25)
+}
+.stamp .in{display:grid;place-items:center;font-family:"Caveat";font-size:18px;color:#6b4e0f;text-align:center;padding:6px}
+.stamp .in b{display:block;font-family:"Cormorant Garamond";font-style:italic;font-size:22px;color:#1a1410;letter-spacing:-.5px;line-height:1}
+.stamp .post{position:absolute;inset:0;background:
+  radial-gradient(circle at 50% 50%, transparent 38%, rgba(0,0,0,0) 40%);
+  pointer-events:none}
+.postmark{
+  position:absolute;top:40px;right:130px;border:2px solid #6b4e0f;border-radius:999px;width:100px;height:100px;
+  display:grid;place-items:center;transform:rotate(-10deg);opacity:.7;color:#6b4e0f;font-family:"Courier Prime";font-size:9px;letter-spacing:.22em;
+  text-align:center;line-height:1.35
+}
+.postmark b{display:block;font-size:14px;letter-spacing:.06em;color:#6b4e0f;margin:4px 0;font-family:"Cormorant Garamond";font-style:italic;font-weight:500}
+
+/* content */
+.dateline{margin-top:40px;font-family:"Caveat";font-size:22px;color:var(--bluepen)}
+.greeting{font-family:"Caveat";font-size:36px;color:var(--ink);margin-top:12px;line-height:1}
+.greeting em{color:var(--redpen);font-style:italic}
+
+.body p{font-family:"Cormorant Garamond",serif;font-size:21px;line-height:1.75;margin-top:20px;color:#241c15}
+.body p em{color:var(--bluepen);font-style:italic;font-weight:500}
+.body p b{border-bottom:2px solid var(--redpen);font-weight:500;padding-bottom:1px}
+.body .margin-note{position:absolute;right:42px;width:140px;font-family:"Caveat";color:var(--redpen);font-size:18px;line-height:1.25;transform:rotate(-2deg)}
+
+.underline-red{text-decoration:underline wavy var(--redpen);text-underline-offset:5px;text-decoration-thickness:2px}
+.ink-note{font-family:"Shadows Into Light",cursive;color:var(--bluepen);font-size:19px}
+.ink-note::before{content:"→ ";color:var(--redpen)}
+
+/* handwritten list */
+.list{
+  margin:26px 0 10px;padding:22px 24px;background:rgba(255,255,255,.3);border:1.5px solid rgba(11,44,85,.25);border-radius:4px;
+  position:relative;
+}
+.list::before{
+  content:"WHAT I PROMISE YOU";position:absolute;top:-14px;left:22px;background:var(--paper);padding:0 10px;
+  font-family:"Courier Prime";font-size:11px;letter-spacing:.26em;color:var(--bluepen)
+}
+.list ol{list-style:none;counter-reset:li;display:grid;gap:12px}
+.list li{counter-increment:li;display:grid;grid-template-columns:28px 1fr;gap:14px;font-family:"Cormorant Garamond";font-size:19px;line-height:1.5}
+.list li::before{content:counter(li,lower-roman) ".";color:var(--redpen);font-style:italic;font-weight:500;text-align:right}
+.list li em{color:var(--bluepen);font-style:italic;font-weight:500}
+
+/* signature block */
+.signature{margin-top:40px;font-family:"Caveat";font-size:36px;color:var(--bluepen);line-height:1}
+.signature b{font-family:"Caveat";font-weight:700;font-size:62px;letter-spacing:-2px;color:var(--bluepen);display:block;margin-top:8px;transform:rotate(-3deg);transform-origin:left}
+.signature small{display:block;font-family:"Courier Prime";font-size:12px;letter-spacing:.16em;color:#5a4a2a;margin-top:14px;text-transform:uppercase}
+
+/* PS */
+.ps{margin-top:28px;padding-top:16px;border-top:1px dashed #a08960;font-family:"Cormorant Garamond";font-size:18px;color:#3a2d20;line-height:1.6}
+.ps b{color:var(--redpen);font-weight:500}
+.ps .url{font-family:"Courier Prime";color:var(--bluepen);background:#f7e7b1;padding:1px 6px;border-radius:2px}
+
+/* coffee stain */
+.stain{
+  position:absolute;bottom:40px;left:44px;width:140px;height:140px;border-radius:999px;
+  background:radial-gradient(circle, rgba(100,60,20,.28) 0, rgba(100,60,20,.18) 40%, transparent 62%);
+  box-shadow:inset 0 0 12px rgba(100,60,20,.18);
+  transform:rotate(12deg);z-index:2;pointer-events:none
+}
+.stain::after{
+  content:"";position:absolute;left:10px;top:14px;width:120px;height:112px;border-radius:999px;
+  border:2px solid rgba(100,60,20,.22);
+}
+
+/* cta "sticker" */
+.cta-sticky{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--redpen);color:#fff;padding:18px 26px;border-radius:999px;text-decoration:none;
+  font-family:"Cormorant Garamond";font-weight:500;font-size:20px;letter-spacing:-.2px;
+  transform:rotate(-2deg);box-shadow:4px 4px 0 rgba(0,0,0,.25)
+}
+.cta-sticky .arr{font-family:"Courier Prime";font-weight:700}
+.cta-row{margin-top:22px;display:flex;gap:22px;align-items:center;flex-wrap:wrap;position:relative;z-index:3}
+.cta-row .ghost{font-family:"Caveat";font-size:22px;color:var(--bluepen);text-decoration:none;border-bottom:2px solid var(--bluepen);padding-bottom:2px}
+
+/* circled callout */
+.circle-note{
+  display:inline-block;padding:2px 10px;border:2px solid var(--redpen);border-radius:999px;
+  font-family:"Caveat";color:var(--redpen);font-size:20px;transform:rotate(-2deg);
+}
+
+.torn{position:absolute;top:0;left:0;right:0;height:14px;background:
+  repeating-linear-gradient(-3deg, var(--paper) 0 24px, transparent 24px 26px);
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.15));z-index:2;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="meta">VSL · LANDING · <b>ICP 09</b> · TRUST / FOUNDER / B2B</div>
+
+<div class="wood">
+  <article class="letter">
+    <div class="tape t1"></div>
+    <div class="tape t2"></div>
+    <div class="tape t3"></div>
+    <div class="torn"></div>
+
+    <div class="return">
+      <b>FROM THE DESK OF</b><br/>
+      Travis Keener · Founder<br/>
+      PoolOps · Route &amp; Chemistry<br/>
+      <span style="color:#8c6a1a">P.O. 412 · Austin, TX 78704</span>
+    </div>
+    <div class="postmark">
+      VIA<b>POOLOPS</b>MAILROOM · 2026
+    </div>
+    <div class="stamp">
+      <div class="in"><b>79¢</b>flat / mo</div>
+    </div>
+
+    <div class="polaroid">
+      <div class="pic">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86c0cc"/><stop offset="1" stop-color="#2f4f64"/></linearGradient>
+          </defs>
+          <rect width="100" height="100" fill="url(#water)"/>
+          <path d="M0 72 C20 60, 40 80, 60 70 C80 60, 100 78, 100 78 L100 100 L0 100 Z" fill="#2f4f64"/>
+          <!-- silhouette of guy + net -->
+          <g fill="#1a2833">
+            <rect x="48" y="52" width="7" height="20" rx="1"/>
+            <circle cx="51" cy="50" r="3.5"/>
+            <rect x="54" y="44" width="2" height="32" transform="rotate(20 55 60)"/>
+            <circle cx="66" cy="50" r="3" fill="none" stroke="#1a2833" stroke-width="1.4"/>
+          </g>
+          <!-- sun glint -->
+          <circle cx="20" cy="20" r="10" fill="rgba(255,240,200,.4)"/>
+          <!-- grain -->
+          <rect width="100" height="100" fill="url(#water)" opacity="0"/>
+        </svg>
+      </div>
+      <div class="cap">Pop’s route · <em>summer ’02</em></div>
+    </div>
+
+    <div class="dateline">April, 2026</div>
+    <h1 class="greeting">Dear <em>fellow pool guy,</em></h1>
+
+    <div class="body">
+      <p>
+        My dad ran 54 pools out of a Chevy in Round Rock from 1989 until the day his back went out.
+        He kept everything on a <em>yellow legal pad</em> and a map he drew in pencil. When he handed
+        me the route, he handed me the pad.
+        <span class="circle-note">True story.</span>
+      </p>
+
+      <p>
+        It took me nine months to lose <b>four customers</b> to chemistry I didn’t see coming.
+        I was 31, working sixteen-hour days, and the software I bought cost me $218 a month and
+        crashed every time I drove past a live oak. I called it “modern,” but my dad’s pad was
+        better at its job than the app was at its job.
+      </p>
+
+      <p>
+        <span class="ink-note">this part still bothers me:</span>
+        The only reason I built PoolOps was because <em>nobody else would.</em>
+        Every pool software meeting I sat in ended with a guy in a blazer saying
+        “we’re horizontal — pools are a use case.” Pools aren’t a use case. Pools are the whole thing.
+      </p>
+
+      <div class="list">
+        <ol>
+          <li>PoolOps will <em>always</em> work offline. A pool cage is not a network problem, it’s a pool problem.</li>
+          <li>PoolOps will <em>always</em> charge one flat monthly rate. No per-pool, no per-tech, no surprises on a Tuesday.</li>
+          <li>PoolOps will <em>always</em> answer the phone. When I say founder access, I mean my cell.</li>
+          <li>PoolOps will <em>always</em> be built by a team that has stood in a backyard at 6 a.m. looking at algae.</li>
+        </ol>
+      </div>
+
+      <p>
+        If you’re still reading, you’re the person I wrote this for. Try PoolOps for 14 days.
+        If at the end of it you don’t <span class="underline-red">feel the relief</span>, email me —
+        I’ll refund your first month and shake your hand.
+      </p>
+
+      <p style="font-family:'Shadows Into Light';color:var(--bluepen);font-size:22px;line-height:1.5">
+        — &nbsp;You have my word, and you have my number.
+      </p>
+
+      <div class="cta-row">
+        <a class="cta-sticky" href="#">Start the 14-day trial <span class="arr">→</span></a>
+        <a class="ghost" href="#">or — text me: (512) 555-0194</a>
+      </div>
+
+      <div class="signature">
+        Yours in the shallow end,
+        <b>Travis K.</b>
+        <small>TRAVIS KEENER · FOUNDER · POOLOPS · EST. 2021</small>
+      </div>
+
+      <div class="ps">
+        <b>P.S.</b> — I sent this to every new customer for the first year because I didn’t
+        have a marketing team. I still don’t, really. If you’d rather hear me say it out loud,
+        watch the 90-second film at <span class="url">poolops.com/letter</span>. Same promises, shorter.
+      </div>
+    </div>
+    <div class="stain"></div>
+  </article>
+</div>
+</body>
+</html>

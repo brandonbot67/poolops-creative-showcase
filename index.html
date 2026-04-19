@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>PoolOps · Creative Showcase · 10 assets × 10 ICPs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0c0e;
+  --panel:#111215;
+  --line:#1f2126;
+  --ink:#ebe8e0;
+  --dim:#8a8b8f;
+  --accent:#c7f25c;
+  --pink:#ff6a8a;
+  --cyan:#6fe3ff;
+  --amber:#ffb84d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:"Space Grotesk",sans-serif;line-height:1.55}
+.wrap{max-width:1440px;margin:0 auto;padding:0 32px}
+
+.top{
+  position:sticky;top:0;z-index:30;background:rgba(11,12,14,.86);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  padding:18px 0;
+}
+.top .bar{display:flex;justify-content:space-between;align-items:center}
+.top .brand{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:-.02em;font-size:18px}
+.top .brand .glyph{width:26px;height:26px;border-radius:7px;background:conic-gradient(from 200deg, var(--accent), var(--cyan), var(--pink), var(--accent));box-shadow:0 0 0 3px rgba(199,242,92,.15)}
+.top .meta{font-family:"JetBrains Mono";font-size:11px;letter-spacing:.22em;color:var(--dim);text-transform:uppercase;display:flex;gap:24px;align-items:center}
+.top .meta b{color:var(--accent)}
+
+.hero{padding:96px 0 64px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:auto -10% -40% -10%;height:80%;background:radial-gradient(ellipse at center, rgba(199,242,92,.12), transparent 70%);pointer-events:none}
+.hero .lede{font-family:"JetBrains Mono";font-size:12px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase}
+.hero h1{font-family:"Space Grotesk";font-weight:500;font-size:120px;line-height:.92;letter-spacing:-4px;margin-top:24px;max-width:18ch}
+.hero h1 em{font-family:"Instrument Serif";font-style:italic;font-weight:400;color:var(--accent)}
+.hero p{max-width:720px;margin-top:28px;color:#bdbeb8;font-size:18px}
+.hero p b{color:var(--ink)}
+.hero .facts{margin-top:44px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:940px}
+.hero .facts .f{padding:18px 20px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.hero .facts .f .k{font-family:"JetBrains Mono";font-size:10px;letter-spacing:.22em;color:var(--dim);text-transform:uppercase}
+.hero .facts .f .v{font-family:"Space Grotesk";font-weight:600;font-size:34px;letter-spacing:-1px;margin-top:4px}
+.hero .facts .f .v em{font-family:"Instrument Serif";font-style:italic;color:var(--accent);font-weight:400}
+
+/* Filters */
+.filters{display:flex;gap:10px;padding:22px 0;border-bottom:1px solid var(--line);align-items:center;flex-wrap:wrap}
+.filters .k{font-family:"JetBrains Mono";font-size:10px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase;margin-right:10px}
+.filters button{
+  border:1px solid var(--line);background:transparent;color:var(--ink);font-family:"JetBrains Mono";font-size:11px;letter-spacing:.18em;
+  padding:8px 14px;border-radius:999px;cursor:pointer;text-transform:uppercase
+}
+.filters button.active{background:var(--accent);color:#131403;border-color:var(--accent);font-weight:500}
+.filters .right{margin-left:auto;font-family:"JetBrains Mono";font-size:11px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase}
+.filters .right b{color:var(--ink)}
+
+/* Gallery */
+.gallery{padding:44px 0 100px;display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.card{
+  grid-column:span 6;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .25s ease, border-color .25s ease;
+  position:relative
+}
+.card:hover{transform:translateY(-4px);border-color:#2d313c}
+.card.wide{grid-column:span 8}
+.card.narrow{grid-column:span 4}
+
+.card .ratio{aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--line);position:relative;background:#000}
+.card.sq .ratio{aspect-ratio:1/1}
+.card.tall .ratio{aspect-ratio:4/5}
+.card .ratio iframe{width:170%;height:170%;transform:scale(.59);transform-origin:top left;border:0;pointer-events:none}
+.card.sq .ratio iframe{width:200%;height:200%;transform:scale(.5);transform-origin:top left}
+.card.tall .ratio iframe{width:200%;height:200%;transform:scale(.5);transform-origin:top left}
+
+.card .hover-open{
+  position:absolute;top:14px;right:14px;z-index:2;
+  background:rgba(11,12,14,.85);color:var(--ink);padding:8px 14px;border-radius:999px;text-decoration:none;
+  font-family:"JetBrains Mono";font-size:11px;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--line);
+  backdrop-filter:blur(8px)
+}
+.card .hover-open:hover{background:var(--accent);color:#131403;border-color:var(--accent)}
+
+.card .info{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px}
+.card .info .tags{display:flex;gap:8px;flex-wrap:wrap;font-family:"JetBrains Mono";font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+.card .info .tag{border:1px solid var(--line);color:var(--dim);padding:4px 10px;border-radius:999px}
+.card .info .tag.hot{color:var(--accent);border-color:rgba(199,242,92,.35)}
+.card .info .tag.warm{color:var(--pink);border-color:rgba(255,106,138,.35)}
+.card .info .tag.cool{color:var(--cyan);border-color:rgba(111,227,255,.35)}
+.card .info .tag.amb{color:var(--amber);border-color:rgba(255,184,77,.35)}
+.card .info h3{font-family:"Space Grotesk";font-weight:500;font-size:26px;letter-spacing:-.8px;line-height:1.1;margin-top:6px}
+.card .info h3 em{font-family:"Instrument Serif";font-style:italic;font-weight:400;color:var(--accent)}
+.card .info p{color:#a4a5a0;font-size:14.5px;line-height:1.55}
+.card .info .foot{display:flex;justify-content:space-between;padding-top:14px;border-top:1px solid var(--line);margin-top:8px;font-family:"JetBrains Mono";font-size:11px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
+.card .info .foot b{color:var(--ink)}
+.card .info .foot a{color:var(--accent);text-decoration:none}
+.card .info .num{font-family:"Instrument Serif";font-style:italic;font-size:14px;color:var(--accent);letter-spacing:.02em}
+
+.foot-note{padding:26px 0 60px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-family:"JetBrains Mono";font-size:11px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase}
+.foot-note b{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand"><span class="glyph"></span>PoolOps · Creative Lab</div>
+    <div class="meta"><span>SHOWCASE · <b>APR 2026</b></span><span>10 ASSETS × 10 ICPs</span><span>v<b>1.0</b></span></div>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="lede">— PoolOps · paid creative + landing page studio</div>
+  <h1>Ten assets. Ten buyers. <em>One</em> product.</h1>
+  <p>A compact creative set for Facebook/Instagram, long-form VSL landing pages, and full marketing sites — each tuned to a specific pool-service ICP. <b>Click any card to open the full piece</b> in a new tab.</p>
+  <div class="facts">
+    <div class="f"><div class="k">FB / IG ads</div><div class="v">4</div></div>
+    <div class="f"><div class="k">VSL landing pages</div><div class="v">3</div></div>
+    <div class="f"><div class="k">Full marketing sites</div><div class="v">3</div></div>
+    <div class="f"><div class="k">Distinct ICPs</div><div class="v"><em>10</em></div></div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="filters">
+    <span class="k">Filter</span>
+    <button class="active">All (10)</button>
+    <button>FB / IG Ads</button>
+    <button>VSL Landing Pages</button>
+    <button>Full Websites</button>
+    <span class="right">SORTED BY · <b>ICP INDEX</b></span>
+  </div>
+</div>
+
+<section class="wrap gallery">
+
+  <article class="card wide">
+    <a class="hover-open" target="_blank" href="01-veteran-fb-ad.html">Open ↗</a>
+    <div class="ratio"><iframe src="01-veteran-fb-ad.html" loading="lazy"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="tag">FB · IG AD</span><span class="tag">1200×628</span><span class="tag hot">ICP 01</span></div>
+      <h3>01 · <em>The Veteran</em> — For the ones who built this with their hands.</h3>
+      <p>Americana print aesthetic — vintage service-station typography, oxblood + cream palette, typewriter captions. Speaks to the 55+ owner-operator who has run 34 pools on a legal pad since 1998.</p>
+      <div class="foot"><span>AESTHETIC · <b>RETRO AMERICANA</b></span><span><a href="01-veteran-fb-ad.html" target="_blank">OPEN FULL →</a></span></div>
+    </div>
+  </article>
+
+  <article class="card narrow sq">
+    <a class="hover-open" target="_blank" href="02-hustler-fb-ad.html">Open ↗</a>
+    <div class="ratio"><iframe src="02-hustler-fb-ad.html" loading="lazy"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="tag">FB · IG · TIKTOK</span><span class="tag">1080²</span><span class="tag warm">ICP 02</span></div>
+      <h3>02 · <em>The Hustler</em> — Run it like you stole it.</h3>
+      <p>Kinetic brutalism — Archivo Black at 156px, lime + black, diagonal slash. For the 24–34 owner who just acquired a route and wants to squeeze more out of it by Thursday.</p>
+      <div class="foot"><span>AESTHETIC · <b>KINETIC BRUTALISM</b></span><span><a href="02-hustler-fb-ad.html" target="_blank">OPEN ↗</a></span></div>
+    </div>
+  </article>
+
+  <article class="card wide">
+    <a class="hover-open" target="_blank" href="03-callbacks-vsl.html">Open ↗</a>
+    <div class="ratio"><iframe src="03-callbacks-vsl.html" loading="lazy"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="tag">VSL · LP</span><span class="tag">LONG SCROLL</span><span class="tag amb">ICP 03</span></div>
+      <h3>03 · <em>The Callback Issue</em> — A VSL landing page written as a short film.</h3>
+      <p>Editorial/cinematic — Fraunces italic, warm paper + ink-navy. Opens with the 7am phone call every owner dreads, closes with a chemistry log that prevents it. Built for Growing Gary.</p>
+      <div class="foot"><span>AESTHETIC · <b>EDITORIAL CINEMATIC</b></span><span><a href="03-callbacks-vsl.html" target="_blank">READ ↗</a></span></div>
+    </div>
+  </article>
+
+  <article class="card narrow">
+    <a class="hover-open" target="_blank" href="04-commercial-site.html">Open ↗</a>
+    <div class="ratio"><iframe src="04-commercial-site.html" loading="lazy"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="tag">WEBSITE</span><span class="tag">HOMEPAGE</span><span class="tag cool">ICP 04</span></div>
+      <h3>04 · <em>Commercial</em> — Pools that cannot go green.</h3>
+      <p>Refined Swiss-premium — Instrument Serif + Manrope, cream + deep navy. Targeted at hotel chains, HOAs, and aquatic centers who fail audits, not budgets.</p>
+      <div class="foot"><span>AESTHETIC · <b>SWISS PREMIUM</b></span><span><a href="04-commercial-site.html" target="_blank">OPEN ↗</a></span></div>
+    </div>
+  </article>
+
+  <article class="card narrow tall">
+    <a class="hover-open" target="_blank" href="05-route-buyer-fb-ad.html">Open ↗</a>
+    <div class="ratio"><iframe src="05-route-buyer-fb-ad.html" loading="lazy"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="tag">FB · IG · LI</span><span class="tag">1200×1500</span><span class="tag hot">ICP 05</span></div>
+      <h3>05 · <em>The Route Buyer</em> — The route you paid for, rebuilt in 48h.</h3>
+      <p>Data-poster infographic — green terminal palette, Anton at 170px, before/after bars. For owners who just wrote a $112k check for a route and want receipts.</p>
+      <div class="foot"><span>AESTHETIC · <b>DATA POSTER</b></span><span><a href="05-route-buyer-fb-ad.html" target="_blank">OPEN ↗</a></span></div>
+    </div>
+  </article>
+
+  <article class="card wide">
+    <a class="hover-open" target="_blank" href="06-roi-vsl.html">Open ↗</a>
+    <div class="ratio"><iframe src="06-roi-vsl.html" loading="lazy"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="tag">VSL · LP</span><span class="tag">INTERACTIVE FEEL</span><span class="tag hot">ICP 06</span></div>
+      <h3>06 · <em>P&amp;L Desk</em> — Stop running the route on faith.</h3>
+      <p>Bloomberg terminal — Rubik Mono One, green-on-black tickers, ledger tables. A ROI/calculator VSL for the spreadsheet-fluent owner who needs to see the $4,180 in a line item before they believe it.</p>
+      <div class="foot"><span>AESTHETIC · <b>FINANCIAL TERMINAL</b></span><span><a href="06-roi-vsl.html" target="_blank">OPEN ↗</a></span></div>
+    </div>
+  </article>
+
+  <article class="card wide">
+    <a class="hover-open" target="_blank" href="07-sunbelt-site.html">Open ↗</a>
+    <div class="ratio"><iframe src="07-sunbelt-site.html" loading="lazy"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="tag">WEBSITE</span><span class="tag">LP</span><span class="tag warm">ICP 07</span></div>
+      <h3>07 · <em>Sunbelt</em> — Built for the route that never closes.</h3>
+      <p>Tropical modern / Miami — DM Serif Display, sun-gradient orange-to-coral, palm silhouettes and a tilted phone mock. Regional play for FL / AZ / CA / TX year-round operators.</p>
+      <div class="foot"><span>AESTHETIC · <b>SUN-DRENCHED MODERN</b></span><span><a href="07-sunbelt-site.html" target="_blank">OPEN ↗</a></span></div>
+    </div>
+  </article>
+
+  <article class="card narrow sq">
+    <a class="hover-open" target="_blank" href="08-tech-retention-fb-ad.html">Open ↗</a>
+    <div class="ratio"><iframe src="08-tech-retention-fb-ad.html" loading="lazy"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="tag">FB · IG · LI</span><span class="tag">1200²</span><span class="tag cool">ICP 08</span></div>
+      <h3>08 · <em>Tech Retention</em> — Your best tech just quit.</h3>
+      <p>Documentary B&amp;W — Playfair Display, SVG silhouette of a tech walking away, film-strip border. Owners losing labor to tools that fail in backyards without signal.</p>
+      <div class="foot"><span>AESTHETIC · <b>DOCUMENTARY B&amp;W</b></span><span><a href="08-tech-retention-fb-ad.html" target="_blank">OPEN ↗</a></span></div>
+    </div>
+  </article>
+
+  <article class="card narrow">
+    <a class="hover-open" target="_blank" href="09-founder-vsl.html">Open ↗</a>
+    <div class="ratio"><iframe src="09-founder-vsl.html" loading="lazy"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="tag">VSL · LP</span><span class="tag">TRUST PLAY</span><span class="tag amb">ICP 09</span></div>
+      <h3>09 · <em>Founder’s Letter</em> — Yours in the shallow end.</h3>
+      <p>Handwritten / analog — Caveat + Cormorant, washi tape, polaroid, coffee stain, wax stamp. A trust-first VSL for the skeptical operator who has been burned by software twice.</p>
+      <div class="foot"><span>AESTHETIC · <b>HANDWRITTEN LETTER</b></span><span><a href="09-founder-vsl.html" target="_blank">OPEN ↗</a></span></div>
+    </div>
+  </article>
+
+  <article class="card wide">
+    <a class="hover-open" target="_blank" href="10-multilocation-site.html">Open ↗</a>
+    <div class="ratio"><iframe src="10-multilocation-site.html" loading="lazy"></iframe></div>
+    <div class="info">
+      <div class="tags"><span class="tag">WEBSITE</span><span class="tag">ENTERPRISE</span><span class="tag cool">ICP 10</span></div>
+      <h3>10 · <em>Command</em> — Run every location like your best location.</h3>
+      <p>Command-center dark mode — Space Grotesk 600, cyan/violet gradient system, live map with topographic lines and KPI rollups. For the 100+ tech multi-market operator and franchisor.</p>
+      <div class="foot"><span>AESTHETIC · <b>OPS COMMAND CENTER</b></span><span><a href="10-multilocation-site.html" target="_blank">OPEN ↗</a></span></div>
+    </div>
+  </article>
+
+</section>
+
+<div class="wrap foot-note">
+  <span>POOLOPS · CREATIVE LAB · <b>10 × 10</b></span>
+  <span>BUILT IN ONE SESSION · APR 2026</span>
+  <span>© 2026 · ALL PIECES ARE PRODUCTION-READY HTML</span>
+</div>
+
+</body>
+</html>

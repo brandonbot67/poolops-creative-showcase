@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>PoolOps — You Bought The Route. Now Run It.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --k:#0b0b0b;
+    --w:#f4f3ef;
+    --lime:#d6ff3a;
+    --acid:#00ff66;
+    --pink:#ff4d82;
+    --blue:#2962ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#050505;color:var(--w);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:"Space Grotesk",sans-serif;overflow:hidden}
+  .meta{position:fixed;top:16px;left:20px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.2em;color:#888}
+  .meta b{color:var(--lime)}
+
+  .card{
+    width:1080px;max-width:100%;aspect-ratio:1/1;
+    background:var(--k);
+    color:var(--w);
+    position:relative;
+    overflow:hidden;
+    border-radius:4px;
+    box-shadow:0 40px 120px rgba(0,0,0,.8), 0 0 0 1px #111;
+    display:grid;
+    grid-template-rows:auto 1fr auto;
+  }
+
+  /* Loud diagonal lime bar across the whole thing */
+  .slash{
+    position:absolute;inset:auto -20% 22% -20%;
+    height:220px;background:var(--lime);
+    transform:rotate(-7deg);
+    z-index:1;
+    box-shadow:0 0 0 1px #000;
+  }
+  .slash::after{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(90deg, transparent 0 64px, rgba(0,0,0,.08) 64px 65px);
+  }
+
+  /* ticker strip */
+  .top{
+    position:relative;z-index:3;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;border-bottom:1px solid #1a1a1a;
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;
+  }
+  .top .logo{display:flex;align-items:center;gap:10px;color:var(--w)}
+  .top .logo .dot{width:10px;height:10px;border-radius:999px;background:var(--lime);box-shadow:0 0 0 4px rgba(214,255,58,.15)}
+  .top .run{display:flex;gap:14px;color:#888}
+  .top .run span b{color:var(--w)}
+
+  .body{position:relative;z-index:2;padding:48px 48px 12px;display:flex;flex-direction:column;justify-content:space-between}
+
+  .kicker{
+    display:inline-flex;gap:10px;align-items:center;
+    font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.25em;
+    color:var(--k);background:var(--lime);padding:8px 14px;align-self:flex-start;
+  }
+  .kicker i{width:6px;height:6px;background:var(--k);border-radius:1px}
+
+  h1{
+    font-family:"Archivo Black",sans-serif;
+    font-size:156px;line-height:.82;letter-spacing:-5px;
+    text-transform:uppercase;margin:22px 0 0;color:var(--w);
+    position:relative;
+  }
+  h1 span{display:block}
+  h1 .l1{color:var(--w)}
+  h1 .l2{color:var(--k);position:relative;z-index:4;mix-blend-mode:normal;background:var(--lime);padding:0 14px;transform:translateX(-2px) skewX(-3deg);display:inline-block}
+  h1 .l3{color:var(--w);transform:translateX(18px)}
+  h1 .l3 em{font-style:normal;color:var(--pink)}
+
+  .strike{
+    position:absolute;inset:auto 32px auto auto;top:40px;
+    font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.2em;
+    color:var(--w);border:1px solid var(--w);padding:8px 14px;
+    transform:rotate(6deg);
+    background:rgba(0,0,0,.35);
+  }
+  .strike b{color:var(--acid)}
+
+  .paragraph{
+    max-width:620px;margin-top:26px;
+    font-size:18px;line-height:1.5;color:#d9d9d4;
+  }
+  .paragraph b{color:var(--lime)}
+  .paragraph s{color:#6a6a66}
+
+  .numbers{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px;
+  }
+  .n{
+    background:#0f0f0f;border:1px solid #1b1b1b;padding:18px 20px;position:relative;overflow:hidden
+  }
+  .n::before{content:"";position:absolute;top:0;left:0;width:6px;height:100%;background:var(--lime)}
+  .n .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.24em;color:#7c7c78;text-transform:uppercase}
+  .n .v{font-family:"Archivo Black";font-size:44px;letter-spacing:-1.5px;line-height:1;margin-top:8px;color:var(--w)}
+  .n.v2::before{background:var(--pink)}
+  .n.v2 .v{color:var(--pink)}
+  .n.v3::before{background:var(--blue)}
+  .n.v3 .v{color:#75a5ff}
+
+  .bottom{
+    position:relative;z-index:3;
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+    padding:22px 28px;border-top:1px solid #1a1a1a;background:#060606;
+  }
+  .cta{
+    display:inline-flex;align-items:center;gap:12px;
+    background:var(--lime);color:var(--k);padding:18px 26px;font-family:"Archivo Black";font-size:22px;letter-spacing:-.5px;text-transform:uppercase;
+    box-shadow:6px 6px 0 var(--w);
+  }
+  .cta .arr{font-family:"JetBrains Mono";font-size:26px;font-weight:700;line-height:0}
+  .bottom .pill{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;color:#888}
+  .bottom .pill b{color:var(--w)}
+
+  .tape{
+    position:absolute;z-index:5;
+    font-family:"Archivo Black";font-size:10px;letter-spacing:.4em;padding:6px 10px;
+    background:var(--pink);color:var(--k);transform:rotate(-10deg);
+  }
+  .tape.t1{top:32%;right:8%}
+
+  /* subtle grid */
+  .card::before{
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+</style>
+</head>
+<body>
+<div class="meta">FB / IG / TIKTOK · 1080×1080 · <b>ICP 02</b> · THE HUSTLER · 24–34 · RECENTLY ACQUIRED ROUTE</div>
+
+<div class="card">
+  <div class="slash"></div>
+  <div class="strike">— <b>+6 STOPS / DAY</b> FROM DAY ONE —</div>
+
+  <header class="top">
+    <div class="logo"><span class="dot"></span>POOLOPS · ROUTE OS</div>
+    <div class="run">
+      <span>CAMPAIGN <b>IG-HUSTLER-04</b></span>
+      <span>Q2.2026</span>
+      <span>FLOOR <b>ON</b></span>
+    </div>
+  </header>
+
+  <main class="body">
+    <div>
+      <span class="kicker"><i></i>YOU BOUGHT THE ROUTE.<i></i></span>
+      <h1>
+        <span class="l1">NOW</span>
+        <span class="l2">RUN IT</span>
+        <span class="l3">LIKE YOU <em>STOLE IT.</em></span>
+      </h1>
+
+      <p class="paragraph">
+        The old owner ran <s>paper schedules and paid techs to wander.</s><br/>
+        You’re not doing that. <b>PoolOps</b> rebuilds the route in one click,
+        kills the dead miles, and books the invoice before you’re back in the truck.
+      </p>
+    </div>
+
+    <div class="numbers">
+      <div class="n"><div class="k">Driving time</div><div class="v">−38%</div></div>
+      <div class="n v2"><div class="k">Extra stops / day</div><div class="v">+4–6</div></div>
+      <div class="n v3"><div class="k">Flat monthly</div><div class="v">$79</div></div>
+    </div>
+  </main>
+
+  <footer class="bottom">
+    <a class="cta" href="#">Optimize My Route<span class="arr">↗</span></a>
+    <div class="pill">NO PER-POOL FEES · <b>5-MIN SETUP</b> · IMPORT A SPREADSHEET</div>
+  </footer>
+  <div class="tape t1">NEW OWNER MODE</div>
+</div>
+</body>
+</html>

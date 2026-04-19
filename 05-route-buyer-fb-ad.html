@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>PoolOps — The route you bought, rebuilt.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1a12;
+  --paper:#ecf2ec;
+  --ink:#0a120c;
+  --chart:#2a6b3d;
+  --chart2:#5cc07d;
+  --alert:#ffcf2a;
+  --stamp:#ef3b2c;
+  --grid:rgba(92,192,125,.15);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#050807;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:"Work Sans",sans-serif;color:var(--paper);overflow:hidden}
+.meta{position:fixed;top:14px;left:18px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.2em;color:#4f6659}
+.meta b{color:var(--chart2)}
+
+.card{
+  width:1200px;max-width:100%;aspect-ratio:1200/1500;
+  background:var(--bg);
+  position:relative;overflow:hidden;
+  border-radius:2px;box-shadow:0 40px 120px rgba(0,0,0,.75), inset 0 0 0 1px #0e1f15;
+}
+/* graph-paper backdrop */
+.card::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:40px 40px;
+  opacity:.7;
+}
+.card::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 50% at 70% 90%, rgba(92,192,125,.22), transparent 60%);
+}
+
+.top{
+  position:relative;z-index:2;padding:34px 44px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid rgba(92,192,125,.2);
+}
+.top .brand{display:flex;align-items:center;gap:12px;font-family:"JetBrains Mono";font-size:13px;letter-spacing:.2em;text-transform:uppercase}
+.top .brand .dot{width:10px;height:10px;border-radius:999px;background:var(--chart2);box-shadow:0 0 0 5px rgba(92,192,125,.12)}
+.top .kind{
+  font-family:"JetBrains Mono";font-size:11px;letter-spacing:.3em;color:#7ea58b;text-transform:uppercase;
+  display:flex;gap:18px
+}
+.top .kind b{color:var(--alert)}
+
+.body{
+  position:relative;z-index:2;padding:46px 44px 28px;
+}
+
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,207,42,.12);color:var(--alert);
+  border:1px solid rgba(255,207,42,.4);
+  font-family:"JetBrains Mono";font-size:12px;letter-spacing:.2em;padding:8px 14px;border-radius:2px;
+  text-transform:uppercase
+}
+.kicker i{width:6px;height:6px;background:var(--alert);border-radius:999px}
+
+h1{
+  font-family:"Anton",sans-serif;
+  font-size:170px;line-height:.85;letter-spacing:-3px;
+  text-transform:uppercase;color:var(--paper);margin-top:20px;
+}
+h1 .route{color:var(--chart2)}
+h1 .you{color:var(--alert)}
+h1 .bar{background:var(--paper);color:var(--ink);display:inline-block;padding:0 16px;transform:translateX(-4px)}
+
+.lede{
+  margin-top:26px;max-width:620px;font-size:18px;line-height:1.55;color:#cddcd3;
+}
+.lede b{color:var(--paper)}
+.lede u{text-decoration:none;border-bottom:2px solid var(--alert)}
+
+/* chart row */
+.chart-row{
+  margin-top:40px;display:grid;grid-template-columns:1.4fr 1fr;gap:22px;
+}
+.chart{
+  background:#0a1410;border:1px solid #173626;border-radius:3px;padding:24px 24px 18px;position:relative;overflow:hidden;
+}
+.chart h4{font-family:"JetBrains Mono";font-size:11px;letter-spacing:.24em;color:#8fbba0;text-transform:uppercase;margin-bottom:4px}
+.chart .big{font-family:"Anton";font-size:86px;line-height:.95;letter-spacing:-1.8px;color:var(--paper);margin-top:6px}
+.chart .big em{color:var(--chart2);font-style:normal}
+.chart .cap{font-size:12px;color:#7ea58b;letter-spacing:.1em;margin-top:6px}
+
+.chart-viz{position:relative;height:140px;margin-top:14px;}
+.chart-viz svg{width:100%;height:100%;display:block}
+.chart-viz .label{position:absolute;top:4px;right:4px;font-family:"JetBrains Mono";font-size:10px;letter-spacing:.2em;color:#8fbba0}
+
+.stack{display:flex;flex-direction:column;gap:22px}
+.stack .stat{background:#0a1410;border:1px solid #173626;padding:20px 22px;position:relative;overflow:hidden;border-radius:3px}
+.stack .stat::before{content:"";position:absolute;left:0;top:0;width:6px;height:100%;background:var(--chart2)}
+.stack .stat.alt::before{background:var(--alert)}
+.stack .stat.alt .v{color:var(--alert)}
+.stack .stat .k{font-family:"JetBrains Mono";font-size:10px;letter-spacing:.24em;color:#9ebdac;text-transform:uppercase}
+.stack .stat .v{font-family:"Anton";font-size:72px;letter-spacing:-1.2px;line-height:.95;margin-top:6px;color:var(--chart2)}
+.stack .stat .d{font-size:12px;color:#a4b8ae;margin-top:4px}
+
+/* bar compare */
+.compare{
+  margin-top:32px;background:#0a1410;border:1px solid #173626;padding:26px 26px 22px;border-radius:3px
+}
+.compare .head{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px dashed #173626;margin-bottom:18px}
+.compare .head h4{font-family:"JetBrains Mono";font-size:11px;letter-spacing:.26em;color:#9ebdac;text-transform:uppercase}
+.compare .head span{font-family:"JetBrains Mono";font-size:10px;letter-spacing:.22em;color:#6e8a7b}
+.bars{display:grid;gap:14px}
+.bar{display:grid;grid-template-columns:160px 1fr 120px;align-items:center;gap:18px;font-size:13px}
+.bar .lab{font-family:"JetBrains Mono";color:#d7e6dc;letter-spacing:.1em}
+.bar .lane{background:#0f1f18;height:22px;position:relative;overflow:hidden;border:1px solid #173626}
+.bar .lane span{position:absolute;left:0;top:0;bottom:0;display:flex;align-items:center;padding:0 8px;font-family:"JetBrains Mono";font-size:11px;color:var(--ink);letter-spacing:.08em}
+.bar .v{font-family:"Anton";font-size:24px;letter-spacing:-.4px;color:var(--paper);text-align:right}
+.bar .v em{color:var(--chart2);font-style:normal}
+.bar.prev .lane span{background:#445;color:#ccd}
+.bar.new .lane span{background:var(--chart2)}
+.bar.prev .v{color:#9aa8a2}
+
+/* bottom CTA */
+.bottom{
+  position:relative;z-index:2;border-top:1px solid rgba(92,192,125,.18);
+  padding:28px 44px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+  background:rgba(10,20,16,.7);backdrop-filter:blur(3px)
+}
+.cta{
+  display:inline-flex;align-items:center;gap:14px;
+  background:var(--chart2);color:var(--ink);
+  padding:20px 28px;font-family:"Anton";font-size:30px;letter-spacing:-.4px;text-transform:uppercase;border-radius:999px;
+  box-shadow:0 0 0 6px rgba(92,192,125,.15)
+}
+.cta .arr{font-family:"JetBrains Mono";font-size:22px;font-weight:700;line-height:0}
+.price{font-family:"JetBrains Mono";font-size:13px;letter-spacing:.18em;color:#8fbba0;text-transform:uppercase}
+.price b{color:var(--paper)}
+
+/* stamp */
+.stamp{
+  position:absolute;top:34%;right:36px;z-index:3;
+  font-family:"Bebas Neue";color:var(--stamp);
+  border:4px double var(--stamp);border-radius:8px;padding:14px 22px 12px;
+  transform:rotate(8deg);text-align:center;background:rgba(8,12,10,.5);line-height:1;
+  text-shadow:1px 1px 0 rgba(0,0,0,.5)
+}
+.stamp b{display:block;font-size:38px;letter-spacing:.06em}
+.stamp span{font-family:"JetBrains Mono";font-weight:700;font-size:10px;letter-spacing:.28em;color:#ffc6bf}
+</style>
+</head>
+<body>
+<div class="meta">FB · IG · LINKEDIN · 1200×1500 · <b>ICP 05</b> · THE ROUTE BUYER / ACQUIRER</div>
+
+<div class="card">
+  <div class="stamp"><b>ROUTE PRO</b><span>DAY 1 · READY</span></div>
+
+  <header class="top">
+    <div class="brand"><span class="dot"></span>POOLOPS · ROUTE OS</div>
+    <div class="kind"><span>CAMPAIGN <b>RB-07</b></span><span>FIG. 04</span><span>· BEFORE / AFTER</span></div>
+  </header>
+
+  <main class="body">
+    <span class="kicker"><i></i>YOU JUST BOUGHT 48 POOLS FOR $112,000.</span>
+    <h1>
+      <span class="route">THE ROUTE</span>
+      <span class="you">YOU PAID FOR.</span>
+      <span><span class="bar">REBUILT</span> IN <em>48 HRS.</em></span>
+    </h1>
+    <p class="lede">
+      Previous owners hand you a <b>spreadsheet, a truck, and goodwill</b>.
+      PoolOps ingests the spreadsheet, re-draws the route by gate-code proximity and service window,
+      and <u>hands you back 4–6 extra stops a day</u> — before your first Tuesday.
+    </p>
+
+    <div class="chart-row">
+      <div class="chart">
+        <h4>· Drive time · previous owner vs. PoolOps</h4>
+        <div class="big"><em>−38%</em></div>
+        <div class="cap">Avg. improvement across 214 imported routes · 2024–2026</div>
+        <div class="chart-viz">
+          <span class="label">hours / week</span>
+          <svg viewBox="0 0 400 140" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#5cc07d" stop-opacity=".55"/>
+                <stop offset="1" stop-color="#5cc07d" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#ffcf2a" stop-opacity=".35"/>
+                <stop offset="1" stop-color="#ffcf2a" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- previous route (yellow, high, wavy) -->
+            <path d="M0,30 C40,20 70,70 120,55 C160,40 190,90 240,70 C280,55 310,95 360,85 L400,95 L400,140 L0,140 Z" fill="url(#g2)"/>
+            <path d="M0,30 C40,20 70,70 120,55 C160,40 190,90 240,70 C280,55 310,95 360,85 L400,95" stroke="#ffcf2a" stroke-width="2" fill="none"/>
+            <!-- poolops (green, lower, flatter) -->
+            <path d="M0,90 C40,92 80,88 120,88 C160,87 200,82 240,80 C280,78 320,74 360,72 L400,70 L400,140 L0,140 Z" fill="url(#g1)"/>
+            <path d="M0,90 C40,92 80,88 120,88 C160,87 200,82 240,80 C280,78 320,74 360,72 L400,70" stroke="#5cc07d" stroke-width="2" fill="none"/>
+            <!-- axis -->
+            <line x1="0" y1="140" x2="400" y2="140" stroke="#1c3b28" stroke-width="1"/>
+            <line x1="0" y1="20" x2="400" y2="20" stroke="#1c3b28" stroke-dasharray="2 4" stroke-width="1"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="stat">
+          <div class="k">Extra stops / day</div>
+          <div class="v">+4.6</div>
+          <div class="d">Without adding a tech</div>
+        </div>
+        <div class="stat alt">
+          <div class="k">Yearly savings</div>
+          <div class="v">$4,180</div>
+          <div class="d">Fuel · labor · callbacks</div>
+        </div>
+        <div class="stat">
+          <div class="k">Setup time</div>
+          <div class="v">48h</div>
+          <div class="d">Spreadsheet in · optimized route out</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="head"><h4>· Tuesday, before and after</h4><span>Sample acquired route · 41 pools · Scottsdale</span></div>
+      <div class="bars">
+        <div class="bar prev">
+          <div class="lab">PREV. OWNER</div>
+          <div class="lane"><span style="width:85%">8:12 start → 5:48 finish</span></div>
+          <div class="v">9h 36m</div>
+        </div>
+        <div class="bar new">
+          <div class="lab">POOLOPS ROUTE</div>
+          <div class="lane"><span style="width:58%">8:12 → 2:14</span></div>
+          <div class="v"><em>6h 02m</em></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bottom">
+    <a class="cta" href="#">Import The Route<span class="arr">↗</span></a>
+    <div class="price">$79 / MO · UP TO <b>3 TECHS · 200 POOLS</b> · NO PER-POOL FEES</div>
+  </footer>
+</div>
+</body>
+</html>

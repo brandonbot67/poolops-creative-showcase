@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>POOLOPS · P&L Desk — A terminal for pool service economics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Rubik+Mono+One&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c07;
+  --panel:#0f1309;
+  --line:#1a2012;
+  --green:#3cff76;
+  --green2:#1f8f42;
+  --amber:#ffb400;
+  --red:#ff3e4d;
+  --dim:#8fa38a;
+  --ink:#d9e8d4;
+  --mono:#a2c79a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:"JetBrains Mono",monospace;line-height:1.5;font-size:13px;min-height:100vh}
+.wrap{max-width:1360px;margin:0 auto;padding:14px 22px 60px}
+
+.meta{position:fixed;top:8px;right:14px;font-size:10px;letter-spacing:.22em;color:#486143}
+.meta b{color:var(--green)}
+
+/* terminal chrome */
+.chrome{
+  border:1px solid var(--line);background:var(--panel);
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:8px 12px;
+  font-size:11px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase
+}
+.chrome .left{display:flex;gap:18px;align-items:center}
+.chrome .dot{width:10px;height:10px;border-radius:999px;background:var(--green);box-shadow:0 0 0 3px rgba(60,255,118,.14)}
+.chrome b{color:var(--ink)}
+.chrome .mid{text-align:center;color:var(--amber)}
+.chrome .right{text-align:right;display:flex;gap:14px;align-items:center}
+.chrome .key{border:1px solid #253521;padding:2px 8px;color:var(--ink)}
+
+/* ticker */
+.ticker{
+  margin-top:8px;background:#090b06;border:1px solid var(--line);padding:6px 12px;overflow:hidden;white-space:nowrap;
+  font-size:12px;color:var(--mono);display:flex;gap:32px
+}
+.ticker b{color:var(--ink)}
+.ticker .up{color:var(--green)}
+.ticker .dn{color:var(--red)}
+
+/* hero grid */
+.grid{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.panel{border:1px solid var(--line);background:var(--panel);padding:22px}
+.panel h2{font-family:"Rubik Mono One",sans-serif;font-size:64px;line-height:.95;letter-spacing:-2px;color:var(--ink);text-transform:uppercase;font-weight:400}
+.panel h2 .g{color:var(--green)}
+.panel h2 .a{color:var(--amber)}
+.panel h2 .r{color:var(--red)}
+.panel h4{font-size:10px;letter-spacing:.28em;color:var(--dim);text-transform:uppercase;margin-bottom:6px}
+.panel h4 span{color:var(--green)}
+
+.intro p{margin-top:18px;color:#cee0c9;max-width:52ch;font-size:14px;line-height:1.65;font-family:"Inter",sans-serif}
+.intro p b{color:var(--green)}
+.intro p s{color:#6e8266}
+.intro .row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px;padding-top:18px;border-top:1px dashed #1f2a17}
+.intro .row .k{color:var(--dim);font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+.intro .row .v{font-family:"Rubik Mono One";font-size:28px;color:var(--green);margin-top:4px;letter-spacing:-.5px;font-weight:400}
+
+/* right panel calc */
+.calc{display:flex;flex-direction:column;gap:14px}
+.calc .head{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.calc .head b{color:var(--green);font-size:13px;letter-spacing:.2em}
+.slider{display:grid;grid-template-columns:1fr 80px;gap:14px;align-items:center;padding:10px 0;border-bottom:1px dashed #1a2213}
+.slider .lb{color:var(--ink);font-size:12px;letter-spacing:.14em}
+.slider .lb small{display:block;color:#8aaa87;font-size:10px;margin-top:2px;letter-spacing:.1em}
+.slider .lane{height:8px;background:#0a0f07;border:1px solid #1a2213;position:relative;border-radius:999px;grid-column:1/3}
+.slider .lane i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--green2),var(--green));border-radius:999px}
+.slider .lane i::after{content:"";position:absolute;right:-8px;top:-6px;width:16px;height:18px;background:var(--green);border-radius:3px;box-shadow:0 0 0 3px rgba(60,255,118,.18)}
+.slider .val{font-family:"Rubik Mono One";font-size:22px;color:var(--green);text-align:right;letter-spacing:-.5px;font-weight:400}
+
+.total{padding:22px 24px;background:#0a1206;border:1px solid #2a4a1e;display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;position:relative;overflow:hidden}
+.total::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 90% 30%, rgba(60,255,118,.18), transparent 40%)}
+.total .k{position:relative;z-index:2;font-size:11px;color:var(--dim);letter-spacing:.24em;text-transform:uppercase}
+.total .v{position:relative;z-index:2;font-family:"Rubik Mono One";font-size:92px;color:var(--green);line-height:1;letter-spacing:-3px;font-weight:400}
+.total .v small{display:block;font-family:"JetBrains Mono";font-size:12px;color:var(--mono);letter-spacing:.18em;margin-top:4px}
+.total .tag{position:relative;z-index:2;font-size:10px;letter-spacing:.2em;color:var(--amber);text-transform:uppercase}
+
+/* ledger + quote row */
+.row2{margin-top:14px;display:grid;grid-template-columns:1.35fr .95fr;gap:12px}
+.ledger table{width:100%;border-collapse:collapse;font-size:13px}
+.ledger th,.ledger td{padding:10px 8px;text-align:left;border-bottom:1px solid #1a2213}
+.ledger th{font-size:10px;color:var(--dim);letter-spacing:.24em;text-transform:uppercase;font-weight:500;background:#0b0f07}
+.ledger td{color:var(--ink);font-family:"JetBrains Mono"}
+.ledger td.c{text-align:right}
+.ledger .gain{color:var(--green)}
+.ledger .loss{color:var(--red)}
+.ledger .muted{color:#7d8e79}
+.ledger tr:hover td{background:#0b100a}
+
+.quote-panel h3{font-family:"Rubik Mono One";font-size:32px;letter-spacing:-1px;line-height:1;color:var(--green);font-weight:400;text-transform:uppercase}
+.quote-panel blockquote{margin-top:16px;padding:18px 20px;border:1px dashed #2e4821;font-family:"Inter",sans-serif;font-style:italic;color:#cee0c9;font-size:15px;line-height:1.55}
+.quote-panel blockquote::before{content:"“";color:var(--green);font-size:40px;float:left;margin:-6px 8px 0 -4px;line-height:1}
+.quote-panel cite{display:block;margin-top:10px;font-size:10px;color:var(--mono);letter-spacing:.2em;text-transform:uppercase;font-style:normal}
+
+/* bottom sparkline and CTA */
+.close{margin-top:14px;background:var(--panel);border:1px solid var(--line);padding:26px 26px 30px;display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center}
+.close h3{font-family:"Rubik Mono One";font-size:48px;line-height:.95;letter-spacing:-1.4px;color:var(--ink);text-transform:uppercase;font-weight:400}
+.close h3 em{color:var(--green);font-style:normal}
+.close p{margin-top:16px;color:#c1d3bd;font-family:"Inter",sans-serif;font-size:15px;line-height:1.6;max-width:46ch}
+.close .cta-bar{margin-top:22px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.close .cta{
+  padding:16px 24px;background:var(--green);color:#081005;font-family:"Rubik Mono One";font-size:16px;letter-spacing:-.2px;text-decoration:none;font-weight:400;
+  display:inline-flex;align-items:center;gap:12px
+}
+.close .cta .arr{font-family:"JetBrains Mono";font-weight:700}
+.close .ghost{color:var(--amber);font-size:12px;letter-spacing:.18em;text-decoration:none;text-transform:uppercase;border-bottom:1px solid #4a3a00;padding-bottom:2px}
+.sparks{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.spark{background:#0b110a;border:1px solid #1a2213;padding:14px 14px 10px}
+.spark .k{font-size:10px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+.spark .v{font-family:"Rubik Mono One";font-size:30px;color:var(--green);margin-top:4px;letter-spacing:-.5px;font-weight:400}
+.spark.alt .v{color:var(--amber)}
+.spark svg{width:100%;height:40px;margin-top:2px}
+
+.foot{margin-top:16px;display:flex;justify-content:space-between;color:#536a4e;font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+.foot b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="meta">VSL · LP · <b>ICP 06</b> · OWNERS WHO NEED TO SEE THE NUMBERS</div>
+
+<div class="wrap">
+  <div class="chrome">
+    <div class="left"><span class="dot"></span><b>POOLOPS · P&amp;L DESK</b><span>v2.4.11</span><span>TERMINAL</span></div>
+    <div class="mid">▣ LIVE · MKT OPEN · ROUTE BOOK 04:22 EST</div>
+    <div class="right"><span>ACC <b>POOL-00712</b></span><span class="key">F1</span><span class="key">F9</span><span class="key">ENTER</span></div>
+  </div>
+
+  <div class="ticker">
+    <span><b>RT.DRIVE</b> <span class="dn">−38.2%</span> q/q</span>
+    <span><b>CALLBACK.FREQ</b> <span class="dn">−74.1%</span> y/y</span>
+    <span><b>INV.DSO</b> <span class="dn">−21d</span></span>
+    <span><b>FUEL.SPEND</b> <span class="dn">−$412 / mo</span></span>
+    <span><b>REV/POOL</b> <span class="up">+$8.40</span></span>
+    <span><b>NPS</b> <span class="up">62 → 81</span></span>
+    <span><b>CHURN</b> <span class="dn">−3.4pp</span></span>
+  </div>
+
+  <section class="grid">
+    <div class="panel intro">
+      <h4>ISSUE BRIEF · <span>VSL / 06</span></h4>
+      <h2>THE <span class="g">$4,000</span><br/>YOU DIDN’T <span class="a">KNOW</span><br/>YOU WERE <span class="r">BLEEDING.</span></h2>
+      <p>
+        Run a two-truck route for twelve months. Your spreadsheet says you’re <s>fine</s>.
+        The <b>terminal says</b> otherwise. Below: a forensic account of where the money leaks — fuel,
+        callbacks, unbilled labor, late invoices — and what pressing <b>[ENTER]</b> on PoolOps does to the line.
+      </p>
+      <div class="row">
+        <div><div class="k">YRS ANALYZED</div><div class="v">4.1</div></div>
+        <div><div class="k">OPERATORS</div><div class="v">214</div></div>
+        <div><div class="k">MEDIAN ROI</div><div class="v">11×</div></div>
+      </div>
+    </div>
+
+    <div class="panel calc">
+      <div class="head"><span>INPUTS · YOUR ROUTE</span><b>[F2] RUN</b></div>
+      <div class="slider">
+        <div class="lb">Pools serviced / week <small>you, your techs, combined</small></div>
+        <div class="val">120</div>
+        <div class="lane"><i style="width:54%"></i></div>
+      </div>
+      <div class="slider">
+        <div class="lb">Avg. drive time / day <small>across all techs</small></div>
+        <div class="val">4.2h</div>
+        <div class="lane"><i style="width:66%"></i></div>
+      </div>
+      <div class="slider">
+        <div class="lb">Callbacks / month <small>chemistry-related, last 12 mo</small></div>
+        <div class="val">3.4</div>
+        <div class="lane"><i style="width:42%"></i></div>
+      </div>
+      <div class="slider">
+        <div class="lb">Avg. days to get paid <small>DSO on open invoices</small></div>
+        <div class="val">24d</div>
+        <div class="lane"><i style="width:60%"></i></div>
+      </div>
+      <div class="total">
+        <div><div class="k">ANNUAL BLEED · RECOVERED</div><div class="v">$4,184<small>± $312 · CONFIDENCE 0.94</small></div></div>
+        <div class="tag">▲ POOLOPS NET</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="row2">
+    <div class="panel ledger">
+      <h4>LEDGER · <span style="color:var(--amber)">WHERE THE MONEY GOES</span></h4>
+      <table>
+        <thead>
+          <tr><th>LINE</th><th>CATEGORY</th><th class="c">PRE</th><th class="c">POOLOPS</th><th class="c">Δ / YR</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>001</td><td>Fuel · route driving</td><td class="c muted">$8,412</td><td class="c">$5,210</td><td class="c gain">+$3,202</td></tr>
+          <tr><td>002</td><td>Callback labor</td><td class="c muted">$6,800</td><td class="c">$1,440</td><td class="c gain">+$5,360</td></tr>
+          <tr><td>003</td><td>Unbilled minutes</td><td class="c muted">$3,100</td><td class="c">$120</td><td class="c gain">+$2,980</td></tr>
+          <tr><td>004</td><td>Late-invoice carry</td><td class="c muted">$2,240</td><td class="c">$480</td><td class="c gain">+$1,760</td></tr>
+          <tr><td>005</td><td>Churn · angry customers</td><td class="c muted">$7,600</td><td class="c">$2,100</td><td class="c gain">+$5,500</td></tr>
+          <tr><td>—</td><td><b>SUBSCRIPTION · POOLOPS</b></td><td class="c muted">—</td><td class="c">$948</td><td class="c loss">−$948</td></tr>
+          <tr style="background:#0c1408">
+            <td><b>NET</b></td><td><b>ANNUAL CASH RECOVERED</b></td><td class="c muted">—</td><td class="c">—</td><td class="c gain"><b>+$17,854</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel quote-panel">
+      <h4>FIELD NOTE · <span style="color:var(--amber)">OPERATOR 00712</span></h4>
+      <h3>“THE TERMINAL IS THE PROOF.”</h3>
+      <blockquote>
+        I’ve run three trucks for eleven years. I <i>thought</i> I knew where the money went. The first month
+        I could see the callbacks as a line item, I canceled my next acquisition offer, fired the
+        broker, and used the savings to pay off my insurance.
+        <cite>— M. REYES · CLEAR CREEK POOL SVC · SCOTTSDALE AZ</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="close">
+    <div>
+      <h4>ACTION · <span style="color:var(--green)">PRESS ENTER</span></h4>
+      <h3>Stop running the route on <em>faith.</em><br/>Run it on <em>numbers.</em></h3>
+      <p>14-day trial. Import your spreadsheet. The terminal will show you the $4,000 line item you’ve been paying without knowing it — or you walk with the analysis and owe us nothing.</p>
+      <div class="cta-bar">
+        <a class="cta" href="#">RUN THE ANALYSIS <span class="arr">⟶</span></a>
+        <a class="ghost" href="#">[F9] DOWNLOAD PDF BRIEF</a>
+      </div>
+    </div>
+    <div class="sparks">
+      <div class="spark">
+        <div class="k">DRIVE H / WK</div>
+        <div class="v">−14.2</div>
+        <svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline fill="none" stroke="#3cff76" stroke-width="1.5" points="0,10 15,12 30,14 45,22 60,28 75,34 100,36"/></svg>
+      </div>
+      <div class="spark">
+        <div class="k">CALLBACKS / Q</div>
+        <div class="v">−74%</div>
+        <svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline fill="none" stroke="#3cff76" stroke-width="1.5" points="0,8 20,15 40,20 60,28 80,34 100,36"/></svg>
+      </div>
+      <div class="spark alt">
+        <div class="k">AVG. DSO</div>
+        <div class="v">8d</div>
+        <svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline fill="none" stroke="#ffb400" stroke-width="1.5" points="0,6 15,12 30,18 45,22 60,26 75,30 100,32"/></svg>
+      </div>
+      <div class="spark">
+        <div class="k">NPS TREND</div>
+        <div class="v">+19</div>
+        <svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline fill="none" stroke="#3cff76" stroke-width="1.5" points="0,32 15,28 30,22 45,16 60,12 75,8 100,4"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span>POOLOPS · TERMINAL · <b>F1 HELP · F5 REFRESH · F12 EXIT</b></span>
+    <span>© 2026 · ROUTE OS</span>
+    <span>PAGE <b>1 / 1</b></span>
+  </div>
+</div>
+</body>
+</html>

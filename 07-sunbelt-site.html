@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>PoolOps — Built for the year-round route.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sun:#ffbf3a;
+  --coral:#ff6a55;
+  --peach:#ffd0a3;
+  --aqua:#27b7c2;
+  --deep:#0f5a75;
+  --ink:#16161a;
+  --cream:#fff5e1;
+  --sand:#ffe6bf;
+  --pink:#ff8ca7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--cream);color:var(--ink);font-family:"DM Sans",sans-serif;line-height:1.55;overflow-x:hidden}
+.wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+.meta{position:fixed;top:10px;right:14px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.2em;color:#6f5a38;z-index:50}
+.meta b{color:var(--coral)}
+
+/* sky/sun background behind hero */
+.sky{
+  position:relative;
+  background:
+    radial-gradient(ellipse 90% 60% at 80% -10%, #ffd98c 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 10% 80%, #ffb06a 0%, transparent 55%),
+    linear-gradient(180deg, #ffe9c1, #ffd09a 58%, #ff9f80 100%);
+  overflow:hidden;
+}
+.sun{
+  position:absolute;top:-140px;right:-90px;width:520px;height:520px;border-radius:999px;
+  background:radial-gradient(circle at 40% 40%, #fff2c1, #ffb63a 55%, #ff7a3a 100%);
+  filter:blur(0);box-shadow:0 0 140px rgba(255,166,58,.55);
+}
+.palm{position:absolute;font-size:220px;line-height:1;opacity:.3;user-select:none;pointer-events:none;filter:blur(.4px);color:#3c1f12}
+.palm.p1{bottom:-40px;left:-20px;transform:rotate(-14deg)}
+.palm.p2{top:20px;right:30%;transform:rotate(12deg);font-size:130px;opacity:.22}
+.grid{
+  position:absolute;inset:0;pointer-events:none;opacity:.3;
+  background-image:linear-gradient(rgba(14,28,40,.08) 1px, transparent 1px);
+  background-size:100% 140px;
+}
+
+/* nav */
+.nav{
+  position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:26px 0;
+}
+.nav .brand{display:flex;align-items:center;gap:10px;font-family:"Syne",sans-serif;font-weight:700;letter-spacing:.02em;font-size:20px;color:var(--deep)}
+.nav .brand .moon{width:30px;height:30px;border-radius:999px;background:linear-gradient(135deg,var(--sun),var(--coral));box-shadow:inset 0 -10px 16px rgba(0,0,0,.15)}
+.nav ul{display:flex;gap:28px;list-style:none;color:#3a2c17;font-weight:500}
+.nav ul a{text-decoration:none;color:inherit;font-size:15px}
+.nav .side{display:flex;gap:14px;align-items:center;font-size:14px}
+.nav .side a{text-decoration:none;color:var(--deep);font-weight:600}
+.nav .side .pill{background:var(--ink);color:var(--cream);padding:12px 18px;border-radius:999px;font-size:13px}
+
+/* hero */
+.hero{position:relative;z-index:2;padding:70px 0 130px;display:grid;grid-template-columns:1.25fr .95fr;gap:50px;align-items:center}
+.hero .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.5);backdrop-filter:blur(8px);border:1px solid rgba(12,40,55,.15);color:var(--deep);padding:8px 14px;border-radius:999px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-family:"JetBrains Mono",monospace}
+.hero .badge i{width:6px;height:6px;border-radius:999px;background:var(--coral);box-shadow:0 0 0 4px rgba(255,106,85,.22)}
+.hero h1{
+  font-family:"DM Serif Display",serif;font-weight:400;font-size:112px;line-height:.92;letter-spacing:-3px;margin-top:22px;color:var(--deep)
+}
+.hero h1 em{color:var(--coral);font-style:italic}
+.hero h1 i{color:var(--sun);font-style:normal;background:linear-gradient(180deg,#ffae3a,#ff6a55);-webkit-background-clip:text;background-clip:text;color:transparent;font-family:"Syne";font-weight:800;letter-spacing:-3px}
+.hero .sub{max-width:540px;margin-top:26px;color:#1d242a;font-size:18px;line-height:1.55}
+.hero .sub b{color:var(--deep);font-weight:600}
+
+.hero .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px;max-width:620px}
+.hero .stats .s{background:rgba(255,255,255,.55);backdrop-filter:blur(8px);border:1px solid rgba(12,40,55,.1);padding:16px 18px;border-radius:14px}
+.hero .stats .s .k{font-family:"JetBrains Mono";font-size:10px;letter-spacing:.22em;color:var(--deep);text-transform:uppercase}
+.hero .stats .s .v{font-family:"Syne";font-weight:800;font-size:34px;color:var(--ink);letter-spacing:-1px;line-height:1;margin-top:4px}
+.hero .stats .s .v em{color:var(--coral);font-style:normal}
+
+.hero .cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:36px}
+.cta{display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:var(--cream);padding:18px 26px;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px}
+.cta .arr{font-family:"JetBrains Mono"}
+.ghost-cta{display:inline-flex;align-items:center;gap:10px;color:var(--deep);text-decoration:none;font-weight:600;font-size:15px;border-bottom:2px solid var(--deep);padding-bottom:2px}
+
+/* phone mock */
+.mock{
+  position:relative;margin:0 auto;width:360px;max-width:100%;aspect-ratio:9/19.5;
+  background:#0b1a22;border-radius:46px;padding:14px;
+  box-shadow:0 50px 120px rgba(14,28,40,.35), 0 0 0 6px #fff3dd, 0 0 0 7px rgba(16,32,45,.2);
+  transform:rotate(-3deg);
+}
+.mock::before{content:"";position:absolute;top:22px;left:50%;transform:translateX(-50%);width:90px;height:24px;background:#0b1a22;border-radius:999px;z-index:3}
+.mock .screen{
+  position:absolute;inset:14px;border-radius:34px;overflow:hidden;background:linear-gradient(180deg,#daf1f3,#ffe6cf 50%, #ffccae);
+}
+.mock .screen::before{
+  content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,191,58,.55), transparent 55%);
+}
+.mock .sb{position:absolute;top:18px;left:24px;right:24px;display:flex;justify-content:space-between;color:#123747;font-family:"JetBrains Mono";font-size:11px;letter-spacing:.08em;z-index:2}
+.mock .card-a{position:absolute;top:70px;left:18px;right:18px;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-radius:22px;padding:16px 16px 14px;box-shadow:0 12px 24px rgba(12,40,55,.12)}
+.mock .card-a .k{font-family:"JetBrains Mono";font-size:10px;letter-spacing:.2em;color:var(--deep);text-transform:uppercase}
+.mock .card-a h5{font-family:"DM Serif Display";font-size:28px;color:var(--deep);margin-top:4px;letter-spacing:-.5px}
+.mock .card-a h5 span{color:var(--coral)}
+.mock .card-a p{font-size:12px;color:#2b3c49;margin-top:6px}
+.mock .pill-wx{position:absolute;top:40px;right:18px;background:var(--ink);color:var(--sun);padding:8px 14px;border-radius:999px;font-family:"JetBrains Mono";font-size:11px;display:flex;align-items:center;gap:8px}
+.mock .pill-wx i{width:8px;height:8px;background:var(--sun);border-radius:999px;box-shadow:0 0 0 3px rgba(255,191,58,.25)}
+
+.mock .ring{position:absolute;left:50%;bottom:26%;transform:translateX(-50%);width:180px;height:180px;border-radius:999px;background:conic-gradient(var(--coral) 0 70%, rgba(12,40,55,.12) 0);display:grid;place-items:center;box-shadow:0 16px 40px rgba(255,106,85,.3)}
+.mock .ring::before{content:"";position:absolute;inset:12px;border-radius:999px;background:#fff4dd}
+.mock .ring .num{position:relative;font-family:"DM Serif Display";font-size:52px;color:var(--deep);letter-spacing:-2px;line-height:1}
+.mock .ring .num small{display:block;font-family:"JetBrains Mono";font-size:10px;letter-spacing:.22em;color:var(--deep);margin-top:4px;text-transform:uppercase}
+
+.mock .bar{position:absolute;bottom:18px;left:18px;right:18px;background:#082634;color:var(--cream);border-radius:18px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.mock .bar .t{font-family:"JetBrains Mono";font-size:11px;letter-spacing:.1em}
+.mock .bar .go{background:var(--sun);color:#1a1406;border-radius:999px;padding:6px 12px;font-weight:700;font-size:12px}
+
+/* bottom wave divider */
+.wave{display:block;width:100%;margin-bottom:-2px}
+
+/* heat map section */
+.heat{background:#fff9ef;padding:110px 0 70px;position:relative;overflow:hidden}
+.heat::before{content:"";position:absolute;inset:0;background-image:
+  radial-gradient(circle at 8% 20%, rgba(255,191,58,.25), transparent 25%),
+  radial-gradient(circle at 92% 80%, rgba(255,106,85,.18), transparent 30%)}
+.heat .eye{font-family:"JetBrains Mono";color:var(--coral);font-size:12px;letter-spacing:.28em;text-transform:uppercase}
+.heat h2{font-family:"DM Serif Display";font-weight:400;font-size:80px;letter-spacing:-2px;line-height:1;max-width:980px;margin-top:12px}
+.heat h2 em{color:var(--coral);font-style:italic}
+.heat h2 i{color:var(--aqua);font-style:normal}
+.heat .cards{margin-top:60px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.heat .city{border-radius:22px;padding:24px 22px;color:#fff;position:relative;overflow:hidden;min-height:260px;display:flex;flex-direction:column;justify-content:space-between}
+.heat .city.fl{background:linear-gradient(150deg,#ff7a3a,#ff3a7a)}
+.heat .city.az{background:linear-gradient(150deg,#ff9b3a,#ff4d4d)}
+.heat .city.ca{background:linear-gradient(150deg,#3ab6ff,#7a6aff)}
+.heat .city.tx{background:linear-gradient(150deg,#ff5f6d,#ff9966)}
+.heat .city::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 80% 0%, rgba(255,255,255,.3), transparent 50%)}
+.heat .city h3{font-family:"Syne";font-weight:800;font-size:40px;letter-spacing:-1px;line-height:.95;position:relative}
+.heat .city .meta{font-family:"JetBrains Mono";font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.9;position:relative}
+.heat .city .stat{font-family:"DM Serif Display";font-size:54px;line-height:1;margin-top:18px;letter-spacing:-1.2px;position:relative}
+.heat .city .stat small{display:block;font-family:"JetBrains Mono";font-size:11px;letter-spacing:.16em;margin-top:4px;opacity:.88;text-transform:uppercase}
+.heat .city .foot{font-size:13px;line-height:1.5;position:relative;opacity:.95}
+
+/* playbook strip */
+.strip{background:var(--ink);color:var(--cream);padding:90px 0;position:relative;overflow:hidden}
+.strip::before{
+  content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 20% 100%, rgba(255,106,85,.35), transparent 60%), radial-gradient(ellipse at 100% 0%, rgba(39,183,194,.25), transparent 55%);
+}
+.strip h2{font-family:"DM Serif Display";font-size:72px;letter-spacing:-1.8px;line-height:1;max-width:900px;position:relative}
+.strip h2 em{color:var(--sun);font-style:italic}
+.strip .rows{margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative}
+.strip .play{background:rgba(255,245,225,.06);border:1px solid rgba(255,245,225,.15);backdrop-filter:blur(6px);border-radius:18px;padding:28px 24px;display:flex;flex-direction:column;gap:16px;min-height:260px}
+.strip .play .n{font-family:"Syne";font-weight:800;font-size:22px;color:var(--sun);letter-spacing:.04em}
+.strip .play h4{font-family:"Syne";font-weight:700;font-size:24px;line-height:1.1;letter-spacing:-.5px}
+.strip .play p{color:#d9c9ad;font-size:14.5px;line-height:1.55}
+.strip .play .chip{align-self:flex-start;font-family:"JetBrains Mono";font-size:11px;letter-spacing:.2em;color:var(--coral);border:1px solid rgba(255,106,85,.5);padding:6px 10px;border-radius:999px;text-transform:uppercase}
+
+/* final */
+.final{background:linear-gradient(180deg,#ff9a5a,#ff5f7a);padding:120px 0 140px;color:#1a0a0a;position:relative;overflow:hidden}
+.final::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 90% 0%, rgba(255,255,255,.4), transparent 40%)}
+.final .container{position:relative;display:grid;grid-template-columns:1.2fr 1fr;gap:50px;align-items:center}
+.final h2{font-family:"DM Serif Display";font-weight:400;font-size:96px;letter-spacing:-2px;line-height:.95;color:#1a0a0a}
+.final h2 em{font-style:italic;color:#fff5e1}
+.final p{margin-top:20px;font-size:17px;line-height:1.55;color:#2e0f13;max-width:48ch}
+.final .go{margin-top:28px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.final .go .cta{background:#1a0a0a;color:var(--sun)}
+.final .go .gh{color:#1a0a0a;font-weight:600;text-decoration:none;border-bottom:2px solid #1a0a0a;padding-bottom:2px}
+.final .quote{background:rgba(255,245,225,.6);backdrop-filter:blur(6px);border-radius:22px;padding:28px 30px;border:1px solid rgba(26,10,10,.12)}
+.final .quote q{quotes:none;font-family:"DM Serif Display";font-size:28px;line-height:1.22;letter-spacing:-.6px;color:#1a0a0a;font-style:italic}
+.final .quote cite{display:block;margin-top:18px;font-family:"JetBrains Mono";font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#5a1d22;font-style:normal}
+
+.foot{background:#17141f;color:#a59cc4;padding:22px 0;font-family:"JetBrains Mono";font-size:11px;letter-spacing:.2em;text-transform:uppercase;display:flex;justify-content:space-between}
+.foot b{color:#fff}
+</style>
+</head>
+<body>
+<div class="meta">WEB · LP · <b>ICP 07</b> · SUNBELT YEAR-ROUND ROUTES · FL / AZ / CA / TX</div>
+
+<div class="sky">
+  <div class="sun"></div>
+  <div class="grid"></div>
+  <div class="palm p1">🌴</div>
+  <div class="palm p2">🌴</div>
+
+  <div class="wrap">
+    <nav class="nav">
+      <div class="brand"><span class="moon"></span>PoolOps</div>
+      <ul><li><a>Platform</a></li><li><a>Route</a></li><li><a>Chemistry</a></li><li><a>Billing</a></li><li><a>Pricing</a></li></ul>
+      <div class="side"><a>Sign in</a><a class="pill">Start Free Trial</a></div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <span class="badge"><i></i>FOR YEAR-ROUND ROUTES · FL · AZ · CA · TX</span>
+        <h1>The sun doesn’t <em>rest.</em><br/>Your route <i>shouldn’t</i> either.</h1>
+        <p class="sub">
+          In the Sunbelt, pools stay open 52 weeks a year — which means algae, phosphates, and angry neighbors do too.
+          PoolOps is the <b>year-round operating system</b> for routes that never hit a winter. Chemistry tracking that
+          reads the sun, route optimization that reads the traffic.
+        </p>
+        <div class="stats">
+          <div class="s"><div class="k">MAR → OCT · algae risk</div><div class="v"><em>−74%</em></div></div>
+          <div class="s"><div class="k">Monday · drive hrs</div><div class="v">−3.8</div></div>
+          <div class="s"><div class="k">All-in · monthly</div><div class="v">$79</div></div>
+        </div>
+        <div class="cta-row">
+          <a class="cta" href="#">Start the 14-day trial <span class="arr">→</span></a>
+          <a class="ghost-cta" href="#">See a 90-second demo</a>
+        </div>
+      </div>
+
+      <div class="mock">
+        <div class="screen"></div>
+        <div class="sb"><span>9:42</span><span>☼ 98°F  ●●●</span></div>
+        <div class="pill-wx"><i></i>UV 10 · HIGH</div>
+        <div class="card-a">
+          <div class="k">Today · Miami Shores</div>
+          <h5>14 Pools <span>/ 6h 02m</span></h5>
+          <p>Optimized for the 2pm heat window. Skip outdoor splashpads past noon.</p>
+        </div>
+        <div class="ring">
+          <div class="num">92<small>route score</small></div>
+        </div>
+        <div class="bar"><span class="t">Next stop · 3215 Palm</span><span class="go">GO ↗</span></div>
+      </div>
+    </section>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none"><path fill="#fff9ef" d="M0,48 C240,120 480,0 720,48 C960,96 1200,24 1440,72 L1440,120 L0,120 Z"/></svg>
+</div>
+
+<section class="heat">
+  <div class="wrap">
+    <div class="eye">· The Sunbelt index · live routes</div>
+    <h2>Built for the route that <em>never</em> closes. Tuned for the markets where <i>callbacks cost customers</i>.</h2>
+    <div class="cards">
+      <article class="city fl">
+        <div><div class="meta">Miami · Pinellas · Broward</div><h3>FL</h3></div>
+        <div class="stat">−41%<small>avg. callback frequency</small></div>
+        <div class="foot">Saltwater-aware dosing. Hurricane restart checklists. A swift bilingual customer portal.</div>
+      </article>
+      <article class="city az">
+        <div><div class="meta">Scottsdale · Phoenix · Tucson</div><h3>AZ</h3></div>
+        <div class="stat">+$4,680<small>mean yearly savings</small></div>
+        <div class="foot">Monsoon-ready alerts. Dust-storm rebook flow. Routes built around 110° driveways.</div>
+      </article>
+      <article class="city ca">
+        <div><div class="meta">Valley · OC · Inland Empire</div><h3>CA</h3></div>
+        <div class="stat">22d → 6d<small>median invoice DSO</small></div>
+        <div class="foot">Title-22 logs. EPA CCR-ready exports. A customer portal that finally reads clean.</div>
+      </article>
+      <article class="city tx">
+        <div><div class="meta">Houston · Austin · DFW</div><h3>TX</h3></div>
+        <div class="stat">+6.2<small>extra stops / day</small></div>
+        <div class="foot">Humidity-adjusted TA recs. Storm rescheduler. Tech chat that actually works under pines.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="strip">
+  <div class="wrap">
+    <h2>Three things we built <em>because</em> the Sunbelt asked for them.</h2>
+    <div class="rows">
+      <div class="play">
+        <span class="chip">UV-AWARE</span>
+        <span class="n">I</span>
+        <h4>Chlorine dosing that reads the forecast.</h4>
+        <p>Tri-chlor recommendations shift by the <b>day’s UV index</b>, not a generic weekly baseline. A reading at 7am in July isn’t a reading at 7am in March.</p>
+      </div>
+      <div class="play">
+        <span class="chip">STORM MODE</span>
+        <span class="n">II</span>
+        <h4>The Friday before a hurricane, explained.</h4>
+        <p>One tap rebooks the route, notifies every customer, and queues the <b>post-storm inspection</b> before the wind stops. Tested across two Florida seasons.</p>
+      </div>
+      <div class="play">
+        <span class="chip">BILINGUAL</span>
+        <span class="n">III</span>
+        <h4>A customer portal in the language they hired you in.</h4>
+        <p>Spanish-first invoices, service receipts, and chemistry reports. Because in half of your route, the homeowner is not the person who speaks to you at the gate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap container">
+    <div>
+      <h2>Keep the pools <em>blue.</em><br/>Keep the phone <em>quiet.</em></h2>
+      <p>Start the 14-day trial. Import your route in under an hour. If PoolOps doesn’t save you a callback in the first two weeks, email us — we’ll refund the first month and thank you for the feedback.</p>
+      <div class="go">
+        <a class="cta" href="#">Start free trial <span class="arr">→</span></a>
+        <a class="gh" href="#">Book a 15-min demo</a>
+      </div>
+    </div>
+    <div class="quote">
+      <q>“Three summers in Scottsdale and we haven’t had a green-pool callback since April. The dosing math does the thinking when I’m tired.”</q>
+      <cite>— RAUL P. · CLEAR WATER POOL CO. · SCOTTSDALE AZ</cite>
+    </div>
+  </div>
+</section>
+
+<div class="foot"><div class="wrap" style="display:flex;justify-content:space-between;width:100%"><span>© 2026 POOLOPS · <b>BUILT FOR THE SUN</b></span><span>SUNBELT LP · <b>v4.1</b></span></div></div>
+</body>
+</html>
